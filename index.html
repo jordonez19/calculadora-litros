@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promedio</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        h1 {
+            color: #326fea;
+        }
+
+        label {
+            text-transform: capitalize;
+        }
+
+        input {
+            border: none;
+            border-bottom: solid 2px;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+
+        input:focus {
+            outline: none;
+            border-bottom: solid 2px #326fea;
+
+        }
+
+        .form-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .col {
+            margin: 25px;
+        }
+
+        .btn {
+            background-color: transparent;
+            border: solid 3px #326fea;
+            height: 1cm;
+            border-radius: 10px;
+            width: 185px;
+            text-transform: uppercase;
+        }
+
+        /* Light mode */
+        .light-mode {
+            color: #000;
+            background-color: #fff;
+        }
+
+        /* Dark mode */
+        .dark-mode {
+            color: #fff;
+            background-color: #111;
+        }
+
+        .dark-theme {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .dark-theme h1 {
+            color: #326fea;
+        }
+
+        .dark-theme input {
+            color: #ffffff;
+            background-color: transparent;
+            border-color: #326fea;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Calculadora productos </h1>
+    <button id="theme-button" class="btn">Switch theme</button>
+
+    <form>
+        <div class="form-content">
+            <div class="col">
+                <label for="maiz">maiz</label><br>
+                <input type="number" name="maiz" id="maiz"><br>
+            </div>
+            <div class="col">
+                <label for="lupulo">lupulo</label><br>
+                <input type="number" name="lupulo" id="lupulo"><br>
+            </div>
+            <div class="col">
+                <label for="levadura">levadura</label><br>
+                <input type="number" name="levadura" id="levadura"><br>
+            </div>
+            <div class="col">
+                <label for="maltaPilsen">malta Pilsen</label><br>
+                <input type="number" name="maltaPilsen" id="maltaPilsen"><br>
+            </div>
+            <div class="col">
+                <label for="maltaMunichIII">malta Munich III</label><br>
+                <input type="number" name="malta" id="maltaMunichIII"><br>
+            </div>
+
+            <div class="col">
+                <label for="remolacha">remolacha</label><br>
+                <input type="number" name="remolacha" id="remolacha"><br>
+            </div>
+            <div class="col">
+                <label for="avena">avena</label><br>
+                <input type="number"><br name="avena" id="avena"><br>
+            </div>
+        </div>
+        <label for="total">Total </label>
+        <div id="total"></div>
+        <div class="col">
+            <input type="submit" class="btn" value="obtener valor" onsubmit="calcular()">
+        </div>
+    </form>
+
+
+    <!-- 
+        <div class="col">
+            <label for="terpeno">terpeno</label><br>
+        <input type="number" name="terpeno" id="terpeno"><br>
+    </div> -->
+
+    <script>
+        const themeButton = document.getElementById('theme-button');
+        const body = document.querySelector('body');
+
+        themeButton.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+        });
+        
+
+        function calcularPorcentajes(litrosProduccion) {
+            const porcentajes = {
+                maiz: 7.26 / 100 * litrosProduccion,
+                lupulo: 0.97 / 100 * litrosProduccion,
+                levadura: 0.19 / 100 * litrosProduccion,
+                maltaPilsen: 79.94 / 100 * litrosProduccion,
+                maltaMunichIII: 5.81 / 100 * litrosProduccion,
+                remolacha: 0.2 / 100 * litrosProduccion,
+                avena: 5.81 / 100 * litrosProduccion
+            };
+
+            // Normalizar los porcentajes para que sumen 100%
+            const factor = 100 / (porcentajes.maiz + porcentajes.lupulo + porcentajes.levadura + porcentajes.maltaPilsen + porcentajes.maltaMunichIII + porcentajes.remolacha + porcentajes.avena);
+            Object.keys(porcentajes).forEach(key => porcentajes[key] *= factor);
+
+            return porcentajes;
+        }
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+<!-- 
+
+
+    
+        function calcular() {
+            const valMaiz = document.getElementById("maiz").value;
+            const valLupulo = document.getElementById("lupulo").value;
+            const valLevadura = document.getElementById("levadura").value;
+            const valMaltaPilsen = document.getElementById("maltaPilsen").value;
+            const valMaltaMunichIII = document.getElementById("maltaMunichIII").value;
+            const valTerpeno = document.getElementById("terpeno").value;
+            const valRemolacha = document.getElementById("remolacha").value;
+            const valAvena = document.getElementById("avena").value;
+        }
+
+        
+ -->

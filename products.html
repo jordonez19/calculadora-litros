@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Calculadora de Porcentajes </title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        h1 {
+            color: #326fea;
+        }
+
+        label {
+            text-transform: capitalize;
+            margin-bottom: 25px;
+        }
+
+        input {
+            border: none;
+            border-bottom: solid 2px;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 30px;
+        }
+
+        input:focus {
+            outline: none;
+            border-bottom: solid 2px #326fea;
+        }
+
+        .form-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .col {
+            margin: 25px;
+        }
+
+        .btn {
+            background-color: transparent;
+            border: solid 3px #326fea;
+            border-radius: 10px;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .btn:active {
+            padding: 8px 35px
+        }
+
+        /* Light mode */
+        .light-mode {
+            color: #000;
+            background-color: #fff;
+        }
+
+        /* Dark mode */
+        .dark-mode {
+            color: #fff;
+            background-color: #111;
+        }
+
+        .dark-theme {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .dark-theme h1 {
+            color: #5883db;
+        }
+
+        .dark-theme input {
+            color: #ffffff;
+            background-color: transparent;
+            border-color: #326fea;
+        }
+
+
+        .dark-theme button {
+            color: #fff;
+        }
+
+        #theme-button {
+            margin: 30px 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            line-height: 30px;
+        }
+        strong{
+            color: #326fea;
+        }
+        @media only screen and (max-width: 800px) {
+
+            .dark-theme input {
+                margin-bottom: 5px;
+                width: 100%;
+            }
+
+            .dark-theme input {
+                margin-bottom: 5px;
+                width: 100%;
+            }
+
+            input#litros {
+                width: 77%;
+                margin-bottom: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1> Calculadora de Porcentajes </h1>
+    <button id="theme-button" class="btn">dark, light</button> <br><br>
+
+    <form>
+        <label for="litros">Cantidad de litros de producción:</label><br><br>
+        <br>
+        <input type="number" id="litros" name="litros" min="1" required><br><br>
+        <button type="submit" class="btn">Calcular</button>
+    </form>
+    <div id="resultados"></div>
+    <script>
+
+        const themeButton = document.getElementById('theme-button');
+        const body = document.querySelector('body');
+
+        themeButton.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+        });
+
+
+        function calcularPorcentaje() {
+
+
+            const litros = document.getElementById('litros').value;
+
+            const maiz = 15;
+            const lupulo = 2;
+            const levadura = 0.4;
+            const maltaPilsen = 165;
+            const maltaMunichIII = 12;
+            const remolacha = 10;
+            const avena = 12;
+
+            const kilosMaiz = (litros / 1000) * maiz
+            const kilosLupulo = (litros / 1000) * lupulo
+            const kilosLevadura = (litros / 1000) * levadura
+            const kilosMaltaPilsen = (litros / 1000) * maltaPilsen
+            const kilosMaltaMunichIII = (litros / 1000) * maltaMunichIII
+            const kilosRemolacha = (litros / 1000) * remolacha
+            const kilosAvena = (litros / 1000) * avena
+
+            const total = kilosMaiz + kilosLupulo + kilosLevadura + kilosMaltaPilsen + kilosMaltaMunichIII + kilosAvena
+
+            const porcentajeMaiz = (kilosMaiz / total) * 100;
+            const porcentajeLupulo = (kilosLupulo / total) * 100;
+            const porcentajeLevadura = (kilosLevadura / total) * 100;
+            const porcentajeMaltaPilsen = (kilosMaltaPilsen / total) * 100;
+            const porcentajeMaltaMunichIII = (kilosMaltaMunichIII / total) * 100;
+            const porcentajeRemolacha = (kilosRemolacha / total) * 100;
+            const porcentajeAvena = (kilosAvena / total) * 100;
+
+
+
+            const resultados = document.getElementById("resultados");
+            resultados.innerHTML = `
+            <p>Para ${litros} litros de cerveza necesitas:</p>
+            <ul>
+                <li><strong>Maiz: </strong> ${kilosMaiz.toFixed(2)} kg (${porcentajeMaiz.toFixed(2)}%)</li>
+                <li><strong>Avena: </strong> ${kilosAvena.toFixed(2)} kg (${porcentajeAvena.toFixed(2)}%)</li>
+                <li><strong>Malta Pilsen: </strong> ${kilosMaltaPilsen.toFixed(2)} kg (${porcentajeMaltaPilsen.toFixed(2)}%)</li>
+                <li><strong>Malta Munich III: </strong> ${kilosMaltaMunichIII.toFixed(2)} kg (${porcentajeMaltaMunichIII.toFixed(2)}%)</li>
+                <li><strong>Lúpulo: </strong> ${kilosLupulo.toFixed(2)} kg (${porcentajeLupulo.toFixed(2)}%)</li>
+                <li><strong>Levadura: </strong> ${kilosLevadura.toFixed(2)} kg (${porcentajeLevadura.toFixed(2)}%)</li>
+                <li><strong>Remolacha: </strong> ${kilosRemolacha.toFixed(2)} kg (${porcentajeRemolacha.toFixed(2)}%)</li>
+            </ul>
+            `;
+        }
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const litros = document.getElementById('litros').value;
+            calcularPorcentaje(litros);
+        });
+    </script>
+</body>
+
+</html>
