@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promedio</title>
+    <title> Calculadora de Porcentajes </title>
     <style>
         * {
             font-family: Arial, Helvetica, sans-serif;
@@ -22,19 +21,20 @@
 
         label {
             text-transform: capitalize;
+            margin-bottom: 25px;
         }
 
         input {
             border: none;
             border-bottom: solid 2px;
+            text-align: center;
             margin-bottom: 5px;
-            width: 100%;
+            font-size: 30px;
         }
 
         input:focus {
             outline: none;
             border-bottom: solid 2px #326fea;
-
         }
 
         .form-content {
@@ -50,10 +50,14 @@
         .btn {
             background-color: transparent;
             border: solid 3px #326fea;
-            height: 1cm;
             border-radius: 10px;
-            width: 185px;
             text-transform: uppercase;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .btn:active {
+            padding: 8px 35px
         }
 
         /* Light mode */
@@ -74,7 +78,7 @@
         }
 
         .dark-theme h1 {
-            color: #326fea;
+            color: #5883db;
         }
 
         .dark-theme input {
@@ -82,108 +86,122 @@
             background-color: transparent;
             border-color: #326fea;
         }
+
+
+        .dark-theme button {
+            color: #fff;
+        }
+
+        #theme-button {
+            margin: 30px 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            line-height: 30px;
+        }
+        strong{
+            color: #326fea;
+        }
+        @media only screen and (max-width: 800px) {
+
+            .dark-theme input {
+                margin-bottom: 5px;
+                width: 100%;
+            }
+
+            .dark-theme input {
+                margin-bottom: 5px;
+                width: 100%;
+            }
+
+            input#litros {
+                width: 77%;
+                margin-bottom: 25px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <h1>Calculadora productos </h1>
-    <button id="theme-button" class="btn">Switch theme</button>
+    <h1> Calculadora de Porcentajes </h1>
+    <button id="theme-button" class="btn">dark, light</button> <br><br>
 
     <form>
-        <div class="form-content">
-            <div class="col">
-                <label for="maiz">maiz</label><br>
-                <input type="number" name="maiz" id="maiz"><br>
-            </div>
-            <div class="col">
-                <label for="lupulo">lupulo</label><br>
-                <input type="number" name="lupulo" id="lupulo"><br>
-            </div>
-            <div class="col">
-                <label for="levadura">levadura</label><br>
-                <input type="number" name="levadura" id="levadura"><br>
-            </div>
-            <div class="col">
-                <label for="maltaPilsen">malta Pilsen</label><br>
-                <input type="number" name="maltaPilsen" id="maltaPilsen"><br>
-            </div>
-            <div class="col">
-                <label for="maltaMunichIII">malta Munich III</label><br>
-                <input type="number" name="malta" id="maltaMunichIII"><br>
-            </div>
-
-            <div class="col">
-                <label for="remolacha">remolacha</label><br>
-                <input type="number" name="remolacha" id="remolacha"><br>
-            </div>
-            <div class="col">
-                <label for="avena">avena</label><br>
-                <input type="number"><br name="avena" id="avena"><br>
-            </div>
-        </div>
-        <label for="total">Total </label>
-        <div id="total"></div>
-        <div class="col">
-            <input type="submit" class="btn" value="obtener valor" onsubmit="calcular()">
-        </div>
+        <label for="litros">Cantidad de litros de producción:</label><br><br>
+        <br>
+        <input type="number" id="litros" name="litros" min="1" required><br><br>
+        <button type="submit" class="btn">Calcular</button>
     </form>
-
-
-    <!-- 
-        <div class="col">
-            <label for="terpeno">terpeno</label><br>
-        <input type="number" name="terpeno" id="terpeno"><br>
-    </div> -->
-
+    <div id="resultados"></div>
     <script>
+
         const themeButton = document.getElementById('theme-button');
         const body = document.querySelector('body');
 
         themeButton.addEventListener('click', () => {
             body.classList.toggle('dark-theme');
         });
-        
 
-        function calcularPorcentajes(litrosProduccion) {
-            const porcentajes = {
-                maiz: 7.26 / 100 * litrosProduccion,
-                lupulo: 0.97 / 100 * litrosProduccion,
-                levadura: 0.19 / 100 * litrosProduccion,
-                maltaPilsen: 79.94 / 100 * litrosProduccion,
-                maltaMunichIII: 5.81 / 100 * litrosProduccion,
-                remolacha: 0.2 / 100 * litrosProduccion,
-                avena: 5.81 / 100 * litrosProduccion
-            };
 
-            // Normalizar los porcentajes para que sumen 100%
-            const factor = 100 / (porcentajes.maiz + porcentajes.lupulo + porcentajes.levadura + porcentajes.maltaPilsen + porcentajes.maltaMunichIII + porcentajes.remolacha + porcentajes.avena);
-            Object.keys(porcentajes).forEach(key => porcentajes[key] *= factor);
+        function calcularPorcentaje() {
 
-            return porcentajes;
+
+            const litros = document.getElementById('litros').value;
+
+            const maiz = 15;
+            const lupulo = 2;
+            const levadura = 0.4;
+            const maltaPilsen = 165;
+            const maltaMunichIII = 12;
+            const remolacha = 10;
+            const avena = 12;
+
+            const kilosMaiz = (litros / 1000) * maiz
+            const kilosLupulo = (litros / 1000) * lupulo
+            const kilosLevadura = (litros / 1000) * levadura
+            const kilosMaltaPilsen = (litros / 1000) * maltaPilsen
+            const kilosMaltaMunichIII = (litros / 1000) * maltaMunichIII
+            const kilosRemolacha = (litros / 1000) * remolacha
+            const kilosAvena = (litros / 1000) * avena
+
+            const total = kilosMaiz + kilosLupulo + kilosLevadura + kilosMaltaPilsen + kilosMaltaMunichIII + kilosAvena
+
+            const porcentajeMaiz = (kilosMaiz / total) * 100;
+            const porcentajeLupulo = (kilosLupulo / total) * 100;
+            const porcentajeLevadura = (kilosLevadura / total) * 100;
+            const porcentajeMaltaPilsen = (kilosMaltaPilsen / total) * 100;
+            const porcentajeMaltaMunichIII = (kilosMaltaMunichIII / total) * 100;
+            const porcentajeRemolacha = (kilosRemolacha / total) * 100;
+            const porcentajeAvena = (kilosAvena / total) * 100;
+
+
+
+            const resultados = document.getElementById("resultados");
+            resultados.innerHTML = `
+            <p>Para ${litros} litros de cerveza necesitas:</p>
+            <ul>
+                <li><strong>Maiz: </strong> ${kilosMaiz.toFixed(2)} kg (${porcentajeMaiz.toFixed(2)}%)</li>
+                <li><strong>Avena: </strong> ${kilosAvena.toFixed(2)} kg (${porcentajeAvena.toFixed(2)}%)</li>
+                <li><strong>Malta Pilsen: </strong> ${kilosMaltaPilsen.toFixed(2)} kg (${porcentajeMaltaPilsen.toFixed(2)}%)</li>
+                <li><strong>Malta Munich III: </strong> ${kilosMaltaMunichIII.toFixed(2)} kg (${porcentajeMaltaMunichIII.toFixed(2)}%)</li>
+                <li><strong>Lúpulo: </strong> ${kilosLupulo.toFixed(2)} kg (${porcentajeLupulo.toFixed(2)}%)</li>
+                <li><strong>Levadura: </strong> ${kilosLevadura.toFixed(2)} kg (${porcentajeLevadura.toFixed(2)}%)</li>
+                <li><strong>Remolacha: </strong> ${kilosRemolacha.toFixed(2)} kg (${porcentajeRemolacha.toFixed(2)}%)</li>
+            </ul>
+            `;
         }
 
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const litros = document.getElementById('litros').value;
+            calcularPorcentaje(litros);
+        });
     </script>
 </body>
 
 </html>
-
-
-
-
-<!-- 
-
-
-    
-        function calcular() {
-            const valMaiz = document.getElementById("maiz").value;
-            const valLupulo = document.getElementById("lupulo").value;
-            const valLevadura = document.getElementById("levadura").value;
-            const valMaltaPilsen = document.getElementById("maltaPilsen").value;
-            const valMaltaMunichIII = document.getElementById("maltaMunichIII").value;
-            const valTerpeno = document.getElementById("terpeno").value;
-            const valRemolacha = document.getElementById("remolacha").value;
-            const valAvena = document.getElementById("avena").value;
-        }
-
-        
- -->
